@@ -8,9 +8,9 @@ import { OrderModule } from './order/order.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cart } from './cart/entities/cart.entity';
 import { CartItem } from './cart/entities/cart_item.entity';
-import 'dotenv/config';
 import { Product } from './cart/entities/product.entity';
 import { Order } from './order/entities/order.entity';
+import 'dotenv/config';
 
 const { PG_HOST, PG_PORT, PG_USERNAME, PG_PASSWORD, PG_DATABASE } = process.env;
 @Module({
@@ -26,6 +26,7 @@ const { PG_HOST, PG_PORT, PG_USERNAME, PG_PASSWORD, PG_DATABASE } = process.env;
       password: PG_PASSWORD,
       database: PG_DATABASE,
       entities: [Cart, CartItem, Product, Order],
+      synchronize: true,
       logging: true,
       ssl: {
         rejectUnauthorized: false,

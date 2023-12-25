@@ -5,6 +5,7 @@ import * as apiGateway from 'aws-cdk-lib/aws-apigatewayv2';
 import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import 'dotenv/config';
+import "reflect-metadata"
 
 const app = new cdk.App();
 
@@ -16,6 +17,7 @@ const cartService = new NodejsFunction(stack, 'cartServiceLambda', {
   runtime: Runtime.NODEJS_18_X,
   functionName: 'cartService',
   entry: 'dist/main.js',
+  timeout: cdk.Duration.seconds(10),
   environment: {
     PG_HOST: process.env.PG_HOST!,
     PG_PORT: process.env.PG_PORT!,

@@ -6,17 +6,9 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Cart } from '../../cart/entities/cart.entity';
+import { OrderStatus } from '../models';
 
-enum OrderStatus {
-  OPEN = 'OPEN',
-  APPROVED = 'APPROVED',
-  CONFIRMED = 'CONFIRMED',
-  SENT = 'SENT',
-  COMPLETED = 'COMPLETED',
-  CANCELLED = 'CANCELLED',
-}
-
-@Entity('order')
+@Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -31,14 +23,14 @@ export class Order {
   @JoinColumn({ name: 'cart_id', referencedColumnName: 'id' })
   cart: Cart;
 
-  @Column('json')
+  @Column('json', { nullable: true })
   payment: {
     type: string;
     address?: any;
     creditCard?: any;
   };
 
-  @Column('json')
+  @Column('json', { nullable: true })
   delivery: {
     type: string;
     address: any;

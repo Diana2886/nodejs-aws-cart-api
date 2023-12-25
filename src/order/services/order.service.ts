@@ -3,6 +3,7 @@ import { v4 } from 'uuid';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from '../entities/order.entity';
+import { OrderStatus } from '../models';
 
 @Injectable()
 export class OrderService {
@@ -16,33 +17,31 @@ export class OrderService {
     return orders;
   }
 
-  findById(orderId: string): Order {
-    return this.orders[orderId];
-  }
-
-  create(data: any) {
-    const id = v4();
-    const order = {
-      ...data,
-      id,
-      status: 'inProgress',
-    };
-
-    this.orders[id] = order;
-
+  async findById(orderId: string): Promise<Order> {
+    const order = this.orderRepository.findOneBy({ id: orderId });
+    console.log('order', order);
     return order;
   }
 
-  update(orderId, data) {
-    const order = this.findById(orderId);
+  async create(data: Partial<Order>): Promise<Order> {
+    const order = this.orderRepository.create(data);
+    order.status = OrderStatus.OPEN;
+
+    const createdOrder = await this.orderRepository.save(order);
+    return createdOrder;
+  }
+
+  async update(orderId: string, data: Partial<Order>) {
+    const order = await this.findById(orderId);
 
     if (!order) {
       throw new Error('Order does not exist.');
     }
 
-    this.orders[orderId] = {
+    await this.orderRepository.update(orderId, {
       ...data,
-      id: orderId,
-    };
+    });
+
+    return await this.findById(orderId);
   }
 }

@@ -17,10 +17,9 @@ export class CartService {
   ) {}
 
   async findByUserId(userId: string): Promise<Cart> {
-    return this.cartRepository.findOne({
-      relations: ['items', 'items.product'],
-      where: { user_id: userId, status: CartStatuses.OPEN },
-    });
+    const cart = this.cartRepository.findOneBy({ user_id: userId });
+    console.log('cart', cart);
+    return cart;
   }
 
   async createByUserId(userId: string): Promise<Cart> {
@@ -56,8 +55,23 @@ export class CartService {
       this.cartItemRepository.create(cartItem),
     );
 
-    createdItems.map((createdItem) =>
-      this.cartItemRepository.save(createdItem),
+    await Promise.all(
+      createdItems.map((createdItem) =>
+        this.cartItemRepository.save(createdItem),
+      ),
+    );
+
+    // createdItems.map((createdItem) =>
+    //   this.cartItemRepository.save(createdItem),
+    // );
+
+    // return await this.findByUserId(userId);
+    await this.cartRepository.update(
+      { user_id: userId },
+      {
+        ...rest,
+        status: CartStatuses.ORDERED,
+      },
     );
 
     return await this.findByUserId(userId);
