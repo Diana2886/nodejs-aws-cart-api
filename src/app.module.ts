@@ -6,7 +6,11 @@ import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { Cart } from './cart/entities/cart.entity';
+import { CartItem } from './cart/entities/cart_item.entity';
+import 'dotenv/config';
+import { Product } from './cart/entities/product.entity';
+import { Order } from './order/entities/Order';
 
 @Module({
   imports: [
@@ -21,8 +25,11 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DATABASE,
       entities: ['dist/**/*.entity{.ts,.js}'],
+      // entities: [Cart, CartItem, Product, Order],
       logging: true,
-      namingStrategy: new SnakeNamingStrategy(),
+      ssl: {
+        rejectUnauthorized: false
+      },
     }),
   ],
   controllers: [
