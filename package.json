@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^10.0.3",
+    "@nestjs/common": "^10.3.0",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.0.3",
     "@nestjs/jwt": "^10.1.0",
@@ -29,9 +29,13 @@
     "@nestjs/platform-express": "^10.0.3",
     "@nestjs/typeorm": "^10.0.1",
     "@vendia/serverless-express": "^4.12.6",
+    "aws-cdk": "^2.116.1",
     "aws-cdk-lib": "^2.116.0",
     "aws-lambda": "^1.0.7",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "constructs": "^10.3.0",
+    "dotenv": "^16.3.1",
     "env-cmd": "^10.1.0",
     "helmet": "^7.0.0",
     "passport": "^0.6.0",
@@ -42,7 +46,6 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17",
-    "typeorm-naming-strategies": "^4.1.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -56,9 +59,10 @@
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
     "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "5.60.0",
     "@typescript-eslint/parser": "5.60.0",
-    "dotenv": "^16.3.1",
+    "esbuild": "^0.19.10",
     "eslint": "8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
