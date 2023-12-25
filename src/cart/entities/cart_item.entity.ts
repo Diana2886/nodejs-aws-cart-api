@@ -1,15 +1,9 @@
-import {
-  Column,
-  Entity,
-  PrimaryColumn,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Cart } from './cart.entity';
 import { Product } from './product.entity';
 import { Order } from 'src/order/entities/order.entity';
 
-@Entity()
+@Entity('cart_item')
 export class CartItem {
   @PrimaryColumn({ type: 'uuid', nullable: false })
   cart_id: string;
@@ -27,7 +21,4 @@ export class CartItem {
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
   product: Product;
-
-  // @ManyToOne(() => Order, order => order.id)
-  // order: Order;
 }

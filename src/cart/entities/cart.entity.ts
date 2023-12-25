@@ -13,7 +13,7 @@ enum CartStatuses {
   STATUS = 'STATUS',
 }
 
-@Entity()
+@Entity('cart')
 export class Cart {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -35,5 +35,5 @@ export class Cart {
   items: CartItem[];
 
   @OneToMany(() => Order, (order) => order.cart)
-  order: Order[]
+  order: Order[];
 }
