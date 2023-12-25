@@ -7,13 +7,9 @@ import {
 } from 'typeorm';
 import { CartItem } from './cart_item.entity';
 import { Order } from 'src/order/entities/order.entity';
+import { CartStatuses } from '../models';
 
-enum CartStatuses {
-  OPEN = 'OPEN',
-  STATUS = 'STATUS',
-}
-
-@Entity('cart')
+@Entity('carts')
 export class Cart {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -30,7 +26,7 @@ export class Cart {
   @Column({ type: 'enum', enum: CartStatuses, default: CartStatuses.OPEN })
   status: CartStatuses;
 
-  @OneToMany(() => CartItem, (item) => item.cart, { eager: true })
+  @OneToMany(() => CartItem, (item) => item.cart)
   @JoinColumn({ name: 'id', referencedColumnName: 'cart_id' })
   items: CartItem[];
 

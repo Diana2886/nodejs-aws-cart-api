@@ -3,7 +3,7 @@ import { Cart } from './cart.entity';
 import { Product } from './product.entity';
 import { Order } from 'src/order/entities/order.entity';
 
-@Entity('cart_item')
+@Entity('cart_items')
 export class CartItem {
   @PrimaryColumn({ type: 'uuid', nullable: false })
   cart_id: string;
@@ -14,7 +14,7 @@ export class CartItem {
   @Column({ type: 'integer', nullable: false })
   count: number;
 
-  @ManyToOne(() => Cart, { eager: true })
+  @ManyToOne(() => Cart)
   @JoinColumn({ name: 'cart_id', referencedColumnName: 'id' })
   cart: Cart;
 
