@@ -12,6 +12,7 @@ import 'dotenv/config';
 import { Product } from './cart/entities/product.entity';
 import { Order } from './order/entities/Order';
 
+const { PG_HOST, PG_PORT, PG_USERNAME, PG_PASSWORD, PG_DATABASE } = process.env;
 @Module({
   imports: [
     AuthModule,
@@ -19,22 +20,19 @@ import { Order } from './order/entities/Order';
     OrderModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.PG_HOST,
-      port: +process.env.PG_PORT,
-      username: process.env.PG_USERNAME,
-      password: process.env.PG_PASSWORD,
-      database: process.env.PG_DATABASE,
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      // entities: [Cart, CartItem, Product, Order],
+      host: PG_HOST,
+      port: +PG_PORT,
+      username: PG_USERNAME,
+      password: PG_PASSWORD,
+      database: PG_DATABASE,
+      entities: [Cart, CartItem, Product, Order],
       logging: true,
       ssl: {
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
       },
     }),
   ],
-  controllers: [
-    AppController,
-  ],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
