@@ -6,7 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { CartItem } from './cart_item.entity';
-import { Order } from 'src/order/entities/Order';
+import { Order } from 'src/order/entities/order.entity';
 
 enum CartStatuses {
   OPEN = 'OPEN',

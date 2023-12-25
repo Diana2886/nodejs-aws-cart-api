@@ -10,7 +10,7 @@ import { Cart } from './cart/entities/cart.entity';
 import { CartItem } from './cart/entities/cart_item.entity';
 import 'dotenv/config';
 import { Product } from './cart/entities/product.entity';
-import { Order } from './order/entities/Order';
+import { Order } from './order/entities/order.entity';
 
 const { PG_HOST, PG_PORT, PG_USERNAME, PG_PASSWORD, PG_DATABASE } = process.env;
 @Module({

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Cart } from './cart.entity';
 import { Product } from './product.entity';
-import { Order } from 'src/order/entities/Order';
+import { Order } from 'src/order/entities/order.entity';
 
 @Entity()
 export class CartItem {
