@@ -26,10 +26,10 @@ export class Cart {
   @Column({ type: 'enum', enum: CartStatuses, default: CartStatuses.OPEN })
   status: CartStatuses;
 
-  @OneToMany(() => CartItem, (item) => item.cart)
+  @OneToMany(() => CartItem, (item) => item.cart_id)
   @JoinColumn({ name: 'id', referencedColumnName: 'cart_id' })
   items: CartItem[];
 
-  @OneToMany(() => Order, (order) => order.cart)
+  @OneToMany(() => Order, (order) => order.cart_id)
   order: Order[];
 }

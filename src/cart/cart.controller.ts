@@ -91,20 +91,29 @@ export class CartController {
 
     const { id: cartId, items } = cart;
     const total = calculateCartTotal(cart);
-    const order = await this.orderService.create({
-      ...body, // TODO: validate and pick only necessary data
-      userId,
-      cartId,
-      items,
-      total,
-      delivery: body.delivery,
-    });
-    await this.cartService.updateByUserId(userId, cart);
 
-    return {
-      statusCode: HttpStatus.OK,
-      message: 'OK',
-      data: { order },
-    };
+    try {
+      const order = await this.orderService.createTransactionally({
+        ...body, // TODO: validate and pick only necessary data
+        user_id: userId,
+        cart_id: cartId,
+        items,
+        total,
+        delivery: body.delivery,
+      });
+      await this.cartService.updateByUserId(userId, cart);
+
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'OK',
+        data: { order },
+      };
+    } catch (error) {
+      return {
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Failed to create order',
+        error: error.message,
+      };
+    }
   }
 }
