@@ -19,7 +19,7 @@ export class Order {
   @Column({ type: 'uuid', nullable: false })
   cart_id: string;
 
-  @ManyToOne(() => Cart)
+  @ManyToOne(() => Cart, cart => cart.order, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'cart_id', referencedColumnName: 'id' })
   cart: Cart;
 
