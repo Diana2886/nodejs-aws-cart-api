@@ -21,5 +21,6 @@ COPY --from=dependencies /app/package*.json ./
 # Install app dependencies
 RUN npm ci --only=production
 COPY --from=build /app/dist ./dist
+USER node
 EXPOSE 4000
 CMD [ "npm", "run", "start:prod" ]
