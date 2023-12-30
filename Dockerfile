@@ -5,7 +5,7 @@ WORKDIR /app
 #---- Dependencies ----
 FROM base AS dependencies
 COPY package*.json ./
-RUN npm ci --only=development
+RUN npm ci --only=development && npm cache clean --force
 
 #---- Copy Files/Build ----
 FROM dependencies AS build
@@ -19,7 +19,7 @@ FROM node:18-alpine AS release
 WORKDIR /app
 COPY --from=dependencies /app/package*.json ./
 # Install app dependencies
-RUN npm ci --only=production
+RUN npm ci --only=production && npm cache clean --force
 COPY --from=build /app/dist ./dist
 USER node
 EXPOSE 4000

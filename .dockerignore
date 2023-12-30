@@ -34,3 +34,9 @@ tests/
 
 # Exclude logs or temporary files
 *.log
+
+# Exclude docker files
+**/.dockerignore
+**/Dockerfile*
+**/docker-compose*
+**/compose*
