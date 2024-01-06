@@ -37,7 +37,7 @@ export class CartService {
   updateByUserId(userId: string, item: CartItem): Cart {
     const { id, items: existingItems, ...rest } = this.findOrCreateByUserId(userId);
 
-    const existingItemIndex = existingItems.findIndex(item => item.product.title === item.product.title);
+    const existingItemIndex = existingItems.findIndex(cartItem => cartItem.product.title === item.product.title);
 
     if (existingItemIndex !== -1) {
       existingItems[existingItemIndex].count = item.count;
