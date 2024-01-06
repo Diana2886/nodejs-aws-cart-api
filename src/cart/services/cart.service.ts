@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { v4 } from 'uuid';
 
-import { Cart } from '../models';
+import { Cart, CartItem } from '../models';
 
 @Injectable()
 export class CartService {
@@ -34,13 +34,21 @@ export class CartService {
     return this.createByUserId(userId);
   }
 
-  updateByUserId(userId: string, { items }: Cart): Cart {
-    const { id, ...rest } = this.findOrCreateByUserId(userId);
+  updateByUserId(userId: string, item: CartItem): Cart {
+    const { id, items: existingItems, ...rest } = this.findOrCreateByUserId(userId);
+
+    const existingItemIndex = existingItems.findIndex(item => item.product.title === item.product.title);
+
+    if (existingItemIndex !== -1) {
+      existingItems[existingItemIndex].count = item.count;
+    } else {
+      existingItems.push(item);
+    }
 
     const updatedCart = {
       id,
       ...rest,
-      items: [ ...items ],
+      items: existingItems,
     }
 
     this.userCarts[ userId ] = { ...updatedCart };

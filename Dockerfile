@@ -5,7 +5,7 @@ WORKDIR /app
 #---- Dependencies ----
 FROM base AS dependencies
 COPY package*.json ./
-RUN npm ci --only=development && npm cache clean --force
+RUN npm ci
 
 #---- Copy Files/Build ----
 FROM dependencies AS build
